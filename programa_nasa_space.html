@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Registro - Exploración: Marte, Tierra y Capa de Ozono</title>
+  <style>
+    :root{ --bg:#FF8A00; --card:#ffffffcc; --accent:#003366 }
+    html,body{height:100%;margin:0;font-family:Inter, system-ui, Arial, sans-serif;background:var(--bg);color:#111}
+    .container{max-width:980px;margin:36px auto;padding:20px}
+    header{display:flex;gap:20px;align-items:center}
+    .logo{width:84px;height:84px;border-radius:12px;background:linear-gradient(135deg,#fff4e6, #ffd9a8);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--accent)}
+    h1{margin:0;font-size:1.6rem}
+    p.lead{margin:6px 0 18px;color:#0b2540}
+    .grid{display:grid;grid-template-columns:1fr 360px;gap:18px}
+    .card{background:var(--card);padding:16px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.08)}
+    form .row{display:flex;gap:10px}
+    label{font-size:0.9rem;font-weight:600}
+    input[type=text], input[type=email], input[type=tel], select, textarea{width:100%;padding:10px;border-radius:8px;border:1px solid #ddd;margin-top:6px;font-size:0.95rem}
+    .btn{display:inline-block;padding:10px 14px;border-radius:10px;border:0;background:var(--accent);color:#fff;font-weight:700;cursor:pointer}
+    .video{width:100%;height:200px;border-radius:8px;overflow:hidden}
+    .images{display:flex;gap:8px;margin-top:10px}
+    .images img{width:100%;height:100px;object-fit:cover;border-radius:8px}
+    .small{font-size:0.85rem;color:#333}
+    table{width:100%;border-collapse:collapse;margin-top:10px}
+    th,td{padding:8px;border-bottom:1px solid #eee;text-align:left;font-size:0.9rem}
+    .actions{display:flex;gap:8px}
+    footer{margin-top:30px;text-align:center}
+    .alien{width:120px;margin:0 auto;animation:bounce 2s infinite}
+    @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
+    @media (max-width:900px){.grid{grid-template-columns:1fr;}.video{height:180px}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">M/T</div>
+      <div>
+        <h1>Registro de Interés: Exploración a Marte, Tierra y Capa de Ozono</h1>
+        <p class="lead">Regístrate para recibir información, materiales y ser considerado para participar en actividades relacionadas con la exploración espacial, los efectos en la Tierra y la protección de la capa de ozono.</p>
+      </div>
+    </header>
+
+    <div class="grid">
+      <main class="card">
+        <h2>Formulario de Registro</h2>
+        <form id="registroForm" autocomplete="on">
+          <div class="row">
+            <div style="flex:1">
+              <label for="nombre">Nombre</label>
+              <input id="nombre" name="nombre" type="text" required />
+            </div>
+            <div style="flex:1">
+              <label for="apellido">Apellido</label>
+              <input id="apellido" name="apellido" type="text" required />
+            </div>
+          </div>
+
+          <div class="row" style="margin-top:10px">
+            <div style="flex:1">
+              <label for="cedula">Cédula / ID</label>
+              <input id="cedula" name="cedula" type="text" inputmode="numeric" pattern="[0-9]{4,20}" placeholder="Solo números" required />
+            </div>
+            <div style="flex:1">
+              <label for="telefono">Teléfono</label>
+              <input id="telefono" name="telefono" type="tel" inputmode="tel" pattern="[0-9()+\-\s]{6,20}" placeholder="Ej: 0987654321" required />
+            </div>
+          </div>
+
+          <div style="margin-top:10px">
+            <label for="correo">Correo electrónico</label>
+            <input id="correo" name="correo" type="email" required />
+          </div>
+
+          <div style="margin-top:10px">
+            <label for="interes">¿En qué tema estás más interesado?</label>
+            <select id="interes" name="interes">
+              <option>Exploración de Marte</option>
+              <option>Impacto en la Tierra</option>
+              <option>Capa de ozono y protección</option>
+              <option>Divulgación & Educación</option>
+            </select>
+          </div>
+
+          <div style="margin-top:10px">
+            <label>¿Estarías dispuesto(a) a participar en actividades/pasantías?</label>
+            <div style="margin-top:6px" class="actions">
+              <label><input type="radio" name="participar" value="sí" checked /> Sí</label>
+              <label><input type="radio" name="participar" value="no" /> No</label>
+              <label><input type="radio" name="participar" value="tal_vez" /> Tal vez</label>
+            </div>
+          </div>
+
+          <div style="margin-top:10px">
+            <label for="comentario">Comentario (opcional)</label>
+            <textarea id="comentario" name="comentario" rows="3" placeholder="¿Por qué te interesa?"></textarea>
+          </div>
+
+          <div style="margin-top:12px;display:flex;gap:8px;align-items:center">
+            <button type="submit" class="btn">Registrarme</button>
+            <button type="button" id="limpiar" class="btn" style="background:#666">Limpiar</button>
+            <div style="margin-left:auto; font-size:0.85rem;color:#0b2540">Registros guardados en tu navegador</div>
+          </div>
+        </form>
+
+        <section id="lista" style="margin-top:16px">
+          <h3>Participantes registrados</h3>
+          <div style="display:flex;gap:8px;margin-bottom:6px">
+            <button id="exportCsv" class="btn" style="padding:8px 10px">Exportar CSV</button>
+            <button id="borrarTodos" class="btn" style="background:#b71c1c">Borrar todos</button>
+          </div>
+          <div id="tablaContenedor"></div>
+        </section>
+
+      </main>
+
+      <aside class="card">
+        <h3>Multimedia relacionada</h3>
+        <div class="video">
+          <!-- Video: Marte -->
+          <iframe width="100%" height="100%" src="https://www.youtube.com/embed/9H6-4s8x54o" title="Vídeo Marte" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <p class="small">Video sobre la exploración de Marte (ejemplo).</p>
+
+        <div class="video" style="margin-top:10px">
+          <!-- Video: Capa de ozono / Tierra -->
+          <iframe width="100%" height="100%" src="https://www.youtube.com/embed/4cTz7w7ZfWw" title="Vídeo Ozono" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <p class="small">Video explicativo sobre la capa de ozono (ejemplo).</p>
+
+        <h4 style="margin-top:12px">Imágenes</h4>
+        <div class="images">
+          <img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=800&q=60" alt="Marte"> 
+          <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=800&q=60" alt="Tierra">
+        </div>
+
+        <p class="small" style="margin-top:10px">Puedes reemplazar estos recursos por imágenes y videos propios o por enlaces oficiales.</p>
+      </aside>
+    </div>
+
+    <footer>
+      <img class="alien" src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif" alt="Alien animado agradeciendo" />
+      <p style="font-size:1.1rem;font-weight:700;color:#0b2540">¡Gracias por registrarte!</p>
+    </footer>
+  </div>
+
+  <script>
+    const FORM_KEY = 'registros_exploracion_marte_tierra_v1';
+
+    function obtenerRegistros(){
+      try{return JSON.parse(localStorage.getItem(FORM_KEY) || '[]');}catch(e){return []}
+    }
+    function guardarRegistro(obj){
+      const arr = obtenerRegistros();
+      arr.push(obj);
+      localStorage.setItem(FORM_KEY, JSON.stringify(arr));
+    }
+    function borrarRegistros(){ localStorage.removeItem(FORM_KEY); renderTabla(); }
+
+    function renderTabla(){
+      const datos = obtenerRegistros();
+      const cont = document.getElementById('tablaContenedor');
+      if(datos.length === 0){ cont.innerHTML = '<div class="small">No hay registros aún.</div>'; return }
+      let html = '<table><thead><tr><th>Nombre</th><th>Apellido</th><th>Cédula</th><th>Teléfono</th><th>Correo</th><th>Interés</th><th>Participa</th></tr></thead><tbody>';
+      datos.forEach(d=>{
+        html += `<tr><td>${escapeHtml(d.nombre)}</td><td>${escapeHtml(d.apellido)}</td><td>${escapeHtml(d.cedula)}</td><td>${escapeHtml(d.telefono)}</td><td>${escapeHtml(d.correo)}</td><td>${escapeHtml(d.interes)}</td><td>${escapeHtml(d.participar)}</td></tr>`;
+      });
+      html += '</tbody></table>';
+      cont.innerHTML = html;
+    }
+
+    function escapeHtml(s){ return (s+'').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;'); }
+
+    document.getElementById('registroForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      const f = e.target;
+      const data = {
+        nombre: f.nombre.value.trim(),
+        apellido: f.apellido.value.trim(),
+        cedula: f.cedula.value.trim(),
+        telefono: f.telefono.value.trim(),
+        correo: f.correo.value.trim(),
+        interes: f.interes.value,
+        participar: f.participar.value,
+        comentario: f.comentario.value.trim(),
+        fecha: new Date().toISOString()
+      };
+      if(!data.nombre || !data.apellido || !/^[0-9]{4,20}$/.test(data.cedula) || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(data.correo)){
+        alert('Por favor completa correctamente Nombre, Apellido, Cédula (solo números) y Correo.');
+        return;
+      }
+      guardarRegistro(data);
+      renderTabla();
+      f.reset();
+      alert('Gracias por registrarte. Tus datos han quedado guardados en el navegador.');
+    });
+
+    document.getElementById('limpiar').addEventListener('click', ()=>document.getElementById('registroForm').reset());
+    document.getElementById('borrarTodos').addEventListener('click', ()=>{ if(confirm('Borrar todos los registros guardados en este navegador?')) borrarRegistros(); });
+
+    document.getElementById('exportCsv').addEventListener('click', ()=>{
+      const datos = obtenerRegistros();
+      if(datos.length===0){ alert('No hay datos para exportar.'); return }
+      const keys = ['nombre','apellido','cedula','telefono','correo','interes','participar','comentario','fecha'];
+      const lines = [keys.join(',')];
+      datos.forEach(d => {
+        lines.push(keys.map(k => '"'+(d[k]||'').replace(/"/g,'""')+'"').join(','));
+      });
+      const blob = new Blob([lines.join('\n')],{type:'text/csv;charset=utf-8;'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href = url; a.download = 'registros_exploracion.csv'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+    });
+
+    renderTabla();
+  </script>
+</body>
+</html>
