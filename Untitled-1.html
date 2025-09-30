@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>¡Explora el Universo y Regístrate!</title>
+  <style>
+    body {
+      background: url('https://cdn.pixabay.com/photo/2013/07/18/10/56/milky-way-163700_1280.jpg') no-repeat center center fixed;
+      background-size: cover;
+      font-family: Arial, sans-serif;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+    }
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 8px #000;
+    }
+    form {
+      background: rgba(0, 0, 0, 0.8);
+      border-radius: 15px;
+      padding: 25px;
+      max-width: 500px;
+      margin: 20px auto;
+      box-shadow: 0px 0px 20px rgba(255,255,255,0.6);
+    }
+    input, button, select {
+      display: block;
+      width: 90%;
+      margin: 12px auto;
+      padding: 12px;
+      border-radius: 8px;
+      border: none;
+      font-size: 1em;
+    }
+    button {
+      background-color: #4B0082;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    button:hover {
+      background-color: #8A2BE2;
+    }
+    .topic-image {
+      width: 200px;
+      margin: 15px auto;
+      border-radius: 12px;
+      box-shadow: 0px 0px 15px rgba(255,255,255,0.8);
+      animation: float 4s ease-in-out infinite;
+      display: block;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
+      100% { transform: translateY(0px); }
+    }
+
+    #alien-thanks {
+      display: none;
+      margin-top: 20px;
+    }
+    #alien-thanks img {
+      width: 150px;
+      animation: float 3s ease-in-out infinite;
+    }
+    #alien-thanks p {
+      font-size: 1.5em;
+      font-weight: bold;
+      color: #00FF00;
+      text-shadow: 1px 1px 6px #000;
+    }
+  </style>
+</head>
+<body>
+  <h1>¡Únete a la Aventura del Espacio!</h1>
+
+  <div>
+    <img id="topic-img" src="https://cdn.pixabay.com/photo/2016/03/27/21/17/space-1281683_1280.jpg" alt="Espacio, Galaxias y Universo" class="topic-image">
+  </div>
+
+  <form id="registration-form">
+    <input type="text" placeholder="Nombre" required>
+    <input type="text" placeholder="Apellido" required>
+    <input type="email" placeholder="Correo" required>
+    <input type="tel" placeholder="Número de Teléfono" required>
+
+    <p>¿Qué tema te interesa más?</p>
+    <select id="topic-select" required>
+      <option value="">-- Selecciona una opción --</option>
+      <option value="espacio">Exploración del Espacio</option>
+      <option value="galaxias">Galaxias</option>
+      <option value="universo">El Universo</option>
+    </select>
+
+    <button type="submit">Registrarse</button>
+  </form>
+
+  <div id="alien-thanks">
+    <img src="https://cdn.pixabay.com/photo/2017/07/31/11/21/alien-2553472_1280.png" alt="Alien">
+    <p>¡Gracias por registrarte!</p>
+  </div>
+
+  <script>
+    const form = document.getElementById('registration-form');
+    const alienDiv = document.getElementById('alien-thanks');
+    const topicSelect = document.getElementById('topic-select');
+    const topicImg = document.getElementById('topic-img');
+
+    // Cambiar la imagen según la opción seleccionada
+    topicSelect.addEventListener('change', () => {
+      let value = topicSelect.value;
+      if(value === "espacio") {
+        topicImg.src = "https://cdn.pixabay.com/photo/2016/03/27/21/17/space-1281683_1280.jpg";
+      } else if(value === "galaxias") {
+        topicImg.src = "https://cdn.pixabay.com/photo/2014/03/25/16/53/galaxy-297964_1280.jpg";
+      } else if(value === "universo") {
+        topicImg.src = "https://cdn.pixabay.com/photo/2018/03/06/22/01/universe-3209683_1280.jpg";
+      }
+    });
+
+    // Al enviar el formulario, mostrar el alien
+    form.addEventListener('submit', (e) => {
+      e.preventDefault(); // Evitar recargar
+      form.style.display = 'none';
+      alienDiv.style.display = 'block';
+    });
+  </script>
+</body>
+</html>

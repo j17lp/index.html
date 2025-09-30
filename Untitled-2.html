@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mis gustos — Demo</title>
+  <style>
+    body{margin:0;font-family:"Segoe UI",Roboto,Arial,sans-serif;background:#f5f7fa;color:#222}
+    header{background:linear-gradient(120deg,#0b67c2,#1e90ff);color:white;padding:4rem 1rem;text-align:center}
+    header h1{font-size:2.2rem;margin:0}
+    header p{font-size:1.1rem;margin:.5rem 0 1rem}
+    header button{background:white;color:#0b67c2;font-weight:600;border:none;padding:.8rem 1.4rem;
+      border-radius:30px;cursor:pointer;font-size:1rem;box-shadow:0 4px 12px rgba(0,0,0,.15)}
+    header button:hover{background:#f0f4ff}
+    .container{max-width:900px;margin:2rem auto;padding:1rem}
+    .card{padding:1rem;border-radius:10px;background:white;box-shadow:0 6px 20px rgba(15,15,15,.08);margin-bottom:2rem}
+    h2{margin-top:0}
+    form{display:grid;gap:.6rem}
+    label{font-weight:600;font-size:.9rem}
+    input,select,textarea{width:100%;padding:.6rem;border:1px solid #d2d7df;border-radius:6px;font-size:0.95rem}
+    button{background:#0b67c2;color:white;border:none;padding:.6rem 1rem;border-radius:8px;cursor:pointer}
+    button.secondary{background:#6b7280}
+    table{width:100%;border-collapse:collapse}
+    th,td{padding:.5rem;border-bottom:1px solid #eef0f4;text-align:left;font-size:.9rem}
+    .hidden{display:none}
+    footer{font-size:.8rem;color:#666;text-align:center;margin:2rem 0}
+  </style>
+</head>
+<body>
+  <!-- Portada bonita -->
+  <header>
+    <h1>Bienvenido a Mis Gustos</h1>
+    <p>Comparte tus preferencias de carros, motos, casas, teléfonos y más.<br>
+       Describe también a tu novia ideal 🥰</p>
+    <button onclick="scrollToSection('auth-section')">Comenzar</button>
+  </header>
+
+  <main class="container">
+    <!-- Sección de registro / login -->
+    <div id="auth-section" class="card">
+      <div id="registration">
+        <h2>Registro</h2>
+        <form id="register-form">
+          <label>Nombre completo</label>
+          <input type="text" id="reg-name" required />
+          <label>Correo electrónico</label>
+          <input type="email" id="reg-email" required />
+          <label>Contraseña</label>
+          <input type="password" id="reg-pass" required />
+          <button type="submit">Registrar</button>
+        </form>
+        <p>¿Ya tienes cuenta? <button id="to-login" class="secondary">Inicia sesión</button></p>
+      </div>
+
+      <div id="login" class="hidden">
+        <h2>Iniciar sesión</h2>
+        <form id="login-form">
+          <label>Correo electrónico</label>
+          <input type="email" id="login-email" required />
+          <label>Contraseña</label>
+          <input type="password" id="login-pass" required />
+          <div style="margin-top:.6rem;display:flex;gap:.6rem">
+            <button type="submit">Entrar</button>
+            <button id="to-register" type="button" class="secondary">Registrarme</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Preferencias -->
+    <div id="preferences-section" class="card hidden">
+      <h2>Tus preferencias</h2>
+      <form id="prefs-form">
+        <label>Carro favorito</label>
+        <select id="car">
+          <option>Rolls-Royce Cullinan</option>
+          <option>Ferrari LaFerrari</option>
+          <option>Bugatti Chiron</option>
+        </select>
+
+        <label>Moto favorita</label>
+        <select id="moto">
+          <option>Ducati Panigale V4 SP2</option>
+          <option>Honda CBR1000RR-R Fireblade SP</option>
+          <option>Kawasaki Ninja H2R</option>
+        </select>
+
+        <label>Tipo de casa</label>
+        <select id="house">
+          <option>Mansión</option>
+          <option>Casa de campo</option>
+        </select>
+
+        <label>Teléfono favorito</label>
+        <select id="phone">
+          <option>iPhone 17</option>
+          <option>Samsung S25</option>
+          <option>Google Pixel 9 Pro</option>
+        </select>
+
+        <label>Perfume</label>
+        <input type="text" id="perfume" placeholder="Tu perfume favorito" />
+
+        <label>Describe a tu novia ideal</label>
+        <textarea id="novia" rows="4"></textarea>
+
+        <div style="display:flex;gap:.6rem;margin-top:.6rem">
+          <button type="submit">Guardar</button>
+          <button id="logout" type="button" class="secondary">Cerrar sesión</button>
+        </div>
+      </form>
+      <div id="save-msg" style="margin-top:.6rem;font-size:.9rem;color:#0b67c2"></div>
+    </div>
+
+    <!-- Panel administrador -->
+    <div id="admin-section" class="card">
+      <h2>Panel administrador</h2>
+      <div id="admin-login">
+        <input type="password" id="admin-pass" placeholder="Contraseña admin" />
+        <button id="admin-login-btn">Entrar</button>
+      </div>
+      <div id="admin-panel" class="hidden">
+        <h3>Respuestas de usuarios</h3>
+        <table id="responses-table">
+          <thead><tr><th>Nombre</th><th>Email</th><th>Carro</th><th>Moto</th><th>Casa</th><th>Teléfono</th><th>Perfume</th><th>Novia ideal</th></tr></thead>
+          <tbody></tbody>
+        </table>
+        <button id="admin-logout" class="secondary" style="margin-top:.6rem">Salir admin</button>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    © 2025 Mis Gustos — Demo educativa (sin acceso a dispositivos)
+  </footer>
+
+  <script>
+    const ADMIN_PASSWORD = "demo123"; // cámbiala si quieres
+
+    function scrollToSection(id){ document.getElementById(id).scrollIntoView({behavior:"smooth"}); }
+
+    function getUsers(){ return JSON.parse(localStorage.getItem('users')||"[]"); }
+    function saveUsers(u){ localStorage.setItem('users',JSON.stringify(u)); }
+    function getResponses(){ return JSON.parse(localStorage.getItem('responses')||"[]"); }
+    function saveResponses(r){ localStorage.setItem('responses',JSON.stringify(r)); }
+
+    // Registro
+    document.getElementById('register-form').addEventListener('submit',e=>{
+      e.preventDefault();
+      const n=document.getElementById('reg-name').value.trim();
+      const em=document.getElementById('reg-email').value.trim().toLowerCase();
+      const p=document.getElementById('reg-pass').value;
+      const users=getUsers();
+      if(users.find(u=>u.email===em)){alert("Ya existe ese correo");return;}
+      users.push({name:n,email:em,pass:p});
+      saveUsers(users);
+      alert("Registrado. Ahora inicia sesión");
+      showLogin();
+    });
+
+    // Login
+    document.getElementById('login-form').addEventListener('submit',e=>{
+      e.preventDefault();
+      const em=document.getElementById('login-email').value.trim().toLowerCase();
+      const p=document.getElementById('login-pass').value;
+      const u=getUsers().find(x=>x.email===em && x.pass===p);
+      if(!u){alert("Credenciales incorrectas");return;}
+      localStorage.setItem('logged',JSON.stringify(u));
+      onLogin();
+    });
+
+    function onLogin(){
+      document.getElementById('registration').classList.add('hidden');
+      document.getElementById('login').classList.add('hidden');
+      document.getElementById('preferences-section').classList.remove('hidden');
+      loadPrefs();
+    }
+    function showLogin(){document.getElementById('registration').classList.add('hidden');document.getElementById('login').classList.remove('hidden');}
+    function showRegister(){document.getElementById('login').classList.add('hidden');document.getElementById('registration').classList.remove('hidden');}
+    document.getElementById('to-login').onclick=showLogin;
+    document.getElementById('to-register').onclick=showRegister;
+
+    // Guardar preferencias
+    document.getElementById('prefs-form').addEventListener('submit',e=>{
+      e.preventDefault();
+      const u=JSON.parse(localStorage.getItem('logged')||"null");
+      if(!u) return;
+      const data={name:u.name,email:u.email,car:car.value,moto:moto.value,house:house.value,phone:phone.value,
+                  perfume:perfume.value,novia:novia.value};
+      let rs=getResponses();const ex=rs.find(r=>r.email===u.email);
+      if(ex) Object.assign(ex,data); else rs.push(data);
+      saveResponses(rs);
+      document.getElementById('save-msg').textContent="Guardado ✅";
+    });
+
+    // Logout
+    document.getElementById('logout').onclick=()=>{
+      localStorage.removeItem('logged');
+      document.getElementById('preferences-section').classList.add('hidden');
+      document.getElementById('registration').classList.remove('hidden');
+      document.getElementById('save-msg').textContent="";
+    }
+
+    function loadPrefs(){
+      const u=JSON.parse(localStorage.getItem('logged')||"null");
+      if(!u) return;
+      const r=getResponses().find(r=>r.email===u.email);
+      if(r){car.value=r.car;moto.value=r.moto;house.value=r.house;phone.value=r.phone;
+        perfume.value=r.perfume;novia.value=r.novia;}
+    }
+
+    if(localStorage.getItem('logged')) onLogin();
+
+    // Admin
+    document.getElementById('admin-login-btn').onclick=()=>{
+      if(document.getElementById('admin-pass').value===ADMIN_PASSWORD){
+        document.getElementById('admin-login').classList.add('hidden');
+        document.getElementById('admin-panel').classList.remove('hidden');
+        renderTable();
+      }else alert("Contraseña incorrecta");
+    };
+    document.getElementById('admin-logout').onclick=()=>{
+      document.getElementById('admin-panel').classList.add('hidden');
+      document.getElementById('admin-login').classList.remove('hidden');
+    };
+
+    function renderTable(){
+      const tbody=document.querySelector('#responses-table tbody');
+      tbody.innerHTML="";
+      getResponses().forEach(r=>{
+        tbody.innerHTML+=`<tr><td>${r.name}</td><td>${r.email}</td><td>${r.car}</td><td>${r.moto}</td>
+        <td>${r.house}</td><td>${r.phone}</td><td>${r.perfume}</td><td>${r.novia}</td></tr>`;
+      });
+    }
+  </script>
+</body>
+</html>
